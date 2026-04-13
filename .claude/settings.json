@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "test -f .env || echo '[boilerplate] .env missing — copy .env.example to .env and fill in ANTHROPIC_API_KEY before running the app.'"
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"
           }
         ]
       }
