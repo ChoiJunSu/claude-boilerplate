@@ -12,9 +12,11 @@ New idea → ship in one sitting:
 2. `/plan` — turn the PRD into a file-by-file implementation plan
 3. `/build` — builder agent implements, committing as it goes
 4. `/eval` — evaluator runs the prompt test set in `evals/`
-5. `/ship <vercel|modal|fly>` — shipper deploys
+5. `/ship` — shipper commits, pushes, and merges to the deploy branch (Git-based deploy)
 
 Skip steps only if you know what you're doing. The point is to keep momentum.
+
+This workflow is designed for the **mobile Claude app → Claude Code on the web** path. Start a new session on the repo from your phone and run `/idea` — everything from here on happens in the cloud sandbox and lands as commits.
 
 ---
 
@@ -59,14 +61,25 @@ After a build session, run the user-level **`simplify` skill** manually to catch
 
 ---
 
-## Environment
+## Environment (Claude Code on the web)
 
-Copy `.env.example` → `.env` on first run. Required for most work:
+Primary target is **mobile Claude app → Claude Code on the web**. Every session runs in a fresh sandbox, so:
+
+- **Secrets live in GitHub repo secrets / environment variables**, not in a committed `.env`. The sandbox receives them as env vars at session start.
+- **`.env.example` is for local work only.** Copy it to `.env` if you're running outside the sandbox. `.env` is gitignored.
+- **Dependencies install via `.claude/hooks/session-start.sh`**, which runs on session start in the sandbox. It detects `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Gemfile` and installs accordingly. Don't add your own `npm install` at the top of tasks — the hook handled it.
+- **Never log secrets.** The transcript is visible in the mobile app history.
+
+Required env vars:
 
 - `ANTHROPIC_API_KEY` — always
-- `VERCEL_TOKEN` / `MODAL_TOKEN` / `FLY_API_TOKEN` — only if shipping
+- Deployment platform creds (e.g. `VERCEL_TOKEN`) — only if shipping via CLI rather than Git-based deploy
 
-Never commit `.env`. Never log secrets.
+## Deployment Model
+
+Default to **Git-based deploy**: connect the repo to Vercel (or Railway, Fly, Render, Cloudflare Pages — anything that deploys on push). `/ship` then means "merge to main and let the platform deploy." No CLI binaries assumed in the sandbox.
+
+If Git-based deploy isn't an option for the target (e.g. Modal), `/ship` will install the CLI on demand and deploy from the sandbox.
 
 ---
 
