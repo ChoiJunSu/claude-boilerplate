@@ -42,6 +42,28 @@ docs/
 └── ARCHITECTURE.template.md
 ```
 
+## Running the contrarian bot (this build)
+
+Models the foolish retail crowd with Claude and trades *against* it on the KIS
+mock (paper) account. See [`docs/PRD.md`](./docs/PRD.md) and
+[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
+
+Required env vars (in addition to `ANTHROPIC_API_KEY`):
+
+```
+KIS_APP_KEY          한국투자증권 OpenAPI appkey (모의투자)
+KIS_APP_SECRET       〃 appsecret
+KIS_ACCOUNT_NO       모의 계좌번호 앞 8자리
+KIS_ACCOUNT_PRODUCT  계좌상품코드 뒤 2자리 (default 01)
+```
+
+```
+pip install -r requirements.txt
+python src/main.py --once --dry-run   # one cycle, no real orders
+python src/main.py                    # autonomous loop, market hours only
+python evals/run.py                    # contrarian-logic + crowd-persona evals
+```
+
 ## Notes
 
 - **Mobile-first.** Everything must be committed to the repo — the web sandbox does not read `~/.claude/`.

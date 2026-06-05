@@ -14,3 +14,7 @@ build/
 
 .DS_Store
 *.log
+
+# trading bot runtime state
+.kis_token.json
+journal.db

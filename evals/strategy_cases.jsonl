@@ -1,0 +1,8 @@
+{"name": "panic high-conv, flat cash → buy the dip", "view": {"urge": "panic_sell", "conviction": 85}, "price": 50000, "holding_qty": 0, "cash": 10000000, "num_positions": 0, "expect_side": "buy"}
+{"name": "fomo high-conv while holding → sell into strength", "view": {"urge": "fomo_buy", "conviction": 80}, "price": 50000, "holding_qty": 10, "cash": 5000000, "num_positions": 1, "expect_side": "sell"}
+{"name": "fomo high-conv but not holding → no short, hold", "view": {"urge": "fomo_buy", "conviction": 90}, "price": 50000, "holding_qty": 0, "cash": 5000000, "num_positions": 1, "expect_side": "hold"}
+{"name": "lukewarm hold urge → hold", "view": {"urge": "hold", "conviction": 95}, "price": 50000, "holding_qty": 0, "cash": 5000000, "num_positions": 0, "expect_side": "hold"}
+{"name": "panic but low conviction → hold", "view": {"urge": "panic_sell", "conviction": 30}, "price": 50000, "holding_qty": 0, "cash": 10000000, "num_positions": 0, "expect_side": "hold"}
+{"name": "panic high-conv but position limit reached → hold", "view": {"urge": "panic_sell", "conviction": 88}, "price": 50000, "holding_qty": 0, "cash": 10000000, "num_positions": 5, "expect_side": "hold"}
+{"name": "panic high-conv but cash floor would break → hold", "view": {"urge": "panic_sell", "conviction": 88}, "price": 50000, "holding_qty": 0, "cash": 120000, "num_positions": 0, "expect_side": "hold"}
+{"name": "panic high-conv but already holding → hold", "view": {"urge": "panic_sell", "conviction": 88}, "price": 50000, "holding_qty": 5, "cash": 10000000, "num_positions": 1, "expect_side": "hold"}
